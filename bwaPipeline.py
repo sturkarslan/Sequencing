@@ -296,7 +296,7 @@ def haplotypeCaller(sampleResultsDir,libraryName): #with GATK HaploTypeCaller
     # Select snp variants
     cmd2 = '%s -Xmx128m -jar %s -T SelectVariants -R %s -V %s/%s_gatk-variants-raw.vcf -selectType SNP -o %s/%s_gatk-variants-raw-snps.vcf 2>&1 | tee -a %s' %(javaPath, gatkPath, genomeFasta, sampleResultsDir, libraryName, sampleResultsDir, libraryName, pipelineLog)
     # Apply filters to SNPs
-    cmd3 = '%s -Xmx128m -jar %s -T VariantFiltration -R %s -V %s/%s_gatk-variants-raw-snps.vcf --filterExpression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0" --filterName "my_snp_filter" -o %s/%s_gatk-variants-filtered-snps.vcf 2>&1 | tee -a %s' %(javaPath, gatkPath, genomeFasta, sampleResultsDir, libraryName, sampleResultsDir, libraryName, pipelineLog)
+    cmd3 = "%s -Xmx128m -jar %s -T VariantFiltration -R %s -V %s/%s_gatk-variants-raw-snps.vcf --filterExpression 'QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0' --filterName 'my_snp_filter' -o %s/%s_gatk-variants-filtered-snps.vcf 2>&1 | tee -a %s" %(javaPath, gatkPath, genomeFasta, sampleResultsDir, libraryName, sampleResultsDir, libraryName, pipelineLog)
     
     print "GATK HaplotypeCaller Comnand: ", cmd1
     os.system(cmd1)
